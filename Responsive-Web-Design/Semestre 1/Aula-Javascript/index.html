@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introdução Javascript</title>
+
+</head>
+<body>
+    <h1 id="titulo">Aula de Javascript</h1>
+
+    Nome: <input type="text" id="nome">
+        <button onclick="mudar()">Mudar o nome</button>
+        <br><br>
+    <script>
+        function mudar(){
+        let nome1 = document.getElementById("nome").value
+        document.getElementById("titulo").innerHTML = nome1
+        }
+    </script>
+
+
+    <h2>Exemplo por Classe</h2>
+
+    <p>Primeiro: <span class="corredor"></span></p>
+    <p>Segundo: <span class="corredor"></span></p>
+    <p>Terceiro: <span class="corredor"></span></p>
+
+    Competidor: <input type="text" id="novo"><br>
+    Posição: <input type="number" id="posicao" min="1" max="3">
+    <button onclick="inserir()">Classificar</button>
+
+
+    <script>
+        function inserir(){
+            let posicao = document.getElementById("posicao").value -1
+            let corredor = document.getElementById("novo").value
+            document.getElementsByClassName("corredor")[posicao].innerHTML = corredor
+        }
+    </script>
+
+    <br><br>
+
+    <h2>Exemplo por TAG</h2>
+
+    <ul>
+        <li>Janeiro</li>
+        <li>Fevereiro</li>
+        <li>Março</li>
+        <li>Abril</li>
+        <li>Maio</li>
+    </ul>
+    <br>
+    Escolha um mês: <input type="number" id="numeroMes" min="1" max="5">
+    <button onclick="mudarMes()">Escolher</button>
+    <p>Mês Escolhido:<span id="resultado"></span></p>
+
+    <script>
+        function mudarMes(){
+            let numMes = document.getElementById("numeroMes").value -1
+            let nomeMes = document.getElementsByTagName("li")[numMes].innerHTML
+            document.getElementById("resultado").innerHTML = nomeMes
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <br><br>
+
+    <button onclick="alert('Olá Mundo')">Boas-vindas</button>
+    <br>
+    <button onclick="avisar()">Veja o aviso</button>
+
+
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
