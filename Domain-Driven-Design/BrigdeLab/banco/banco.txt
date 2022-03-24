@@ -1,0 +1,429 @@
+-- ESTRUTURA DDL
+
+-- Excluindo as tabelas existente usando cascade constraint
+
+-- Excluindo tabela T_BLR_AVATAR
+DROP TABLE t_blr_avatar CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_COSMETICO
+DROP TABLE t_blr_cosmetico CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_EXER_REALIZADO
+DROP TABLE t_blr_exer_realizado CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_EXERCICIO
+DROP TABLE t_blr_exercicio CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_LOJA
+DROP TABLE t_blr_loja CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_QUEST_DIA
+DROP TABLE t_blr_quest_dia CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_QUEST_INICIAL_PERG
+DROP TABLE t_blr_quest_inicial_perg CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_QUEST_INICIAL_RESP
+DROP TABLE t_blr_quest_inicial_resp CASCADE CONSTRAINTS;
+
+-- Excluindo tabela T_BLR_USUARIO
+DROP TABLE t_blr_usuario CASCADE CONSTRAINTS;
+
+-- Adicionando as tabelas
+
+-- Adicionado tabela de Avatar
+CREATE TABLE t_blr_avatar (
+    nr_pontuacao_total  NUMBER(6) NULL,
+    nr_total_cosmetico  NUMBER(6),
+    cd_cosmetico        NUMBER(5) NOT NULL,
+    cd_usuario          NUMBER(5) NOT NULL
+);
+
+-- Adicioando tabela de Cosmeticos
+CREATE TABLE t_blr_cosmetico (
+    cd_cosmetico  NUMBER(5) NOT NULL,
+    nm_cosmetico  VARCHAR2(50) NOT NULL,
+    vl_cosmetico  FLOAT NOT NULL,
+    ds_cosmetico  VARCHAR2(500) NOT NULL
+);
+
+-- Adicionando tabela de Exercicios Realizados
+CREATE TABLE t_blr_exer_realizado (
+    sq_inicio     DATE NOT NULL,
+    sq_final      DATE NOT NULL,
+    dt_exercicio  DATE NOT NULL,
+    cd_usuario    NUMBER(5) NOT NULL,
+    cd_exercicio  NUMBER(3) NOT NULL
+);
+
+-- Adicionando tabela de Exercicios
+CREATE TABLE t_blr_exercicio (
+    cd_exercicio  NUMBER(3) NOT NULL,
+    nm_exercicio  VARCHAR2(30) NOT NULL,
+    ds_exercicio  VARCHAR2(400) NOT NULL,
+    nr_pontuacao  NUMBER(6) NOT NULL,
+    qt_realizada  NUMBER(6) NOT NULL
+);
+
+-- Adicionando tabela de Loja
+CREATE TABLE t_blr_loja (
+    cd_transacao        NUMBER(4) NOT NULL,
+    nr_total_transacao  INT NULL,
+    cd_cosmetico        NUMBER(5) NOT NULL,
+    cd_usuario          NUMBER(5) NOT NULL
+);
+
+-- Adicionando tabela de Questionario do Dia
+CREATE TABLE t_blr_quest_dia (
+    dt_registro  DATE NOT NULL,
+    nr_humor     NUMBER(5) NOT NULL,
+    ds_dia       VARCHAR2(500) NOT NULL,
+    cd_usuario   NUMBER(5) NOT NULL
+);
+
+-- Adicionando tabela de Questionario Inicial Perguntas
+CREATE TABLE t_blr_quest_inicial_perg (
+    cd_questionario_inicial  NUMBER(5) NOT NULL,
+    nr_questao               NUMBER(20) NOT NULL,
+    ds_questao               VARCHAR2(300) NOT NULL,
+    nr_resposta              NUMBER(20) NOT NULL,
+    ds_resposta              VARCHAR2(300) NULL
+);
+
+-- Adicionando tabela de Questionario Inial Respostas
+CREATE TABLE t_blr_quest_inicial_resp (
+    cd_questionario_inicial  NUMBER(5) NOT NULL,
+    cd_usuario               NUMBER(5) NOT NULL
+);
+
+-- Iniciando table de Usuarios
+CREATE TABLE t_blr_usuario (
+    cd_usuario     NUMBER(5) NOT NULL,
+    nm_usuario     VARCHAR2(40) NOT NULL,
+    ds_email       VARCHAR2(300) NOT NULL,
+    ds_senha       VARCHAR2(40) NOT NULL,
+    dt_nascimento  DATE,
+    ds_genero      CHAR(10) NULL,
+    dt_cadastro    DATE 
+);
+
+
+
+DROP TABLE teste_data CASCADE CONSTRAINTS; 
+
+CREATE TABLE teste_data (
+    nm_usuario VARCHAR(50) NOT NULL,
+    dt_nascimento DATE NOT NULL
+);
+
+
+-- Adicionando Chaves Primárias
+
+-- Adicionando chave primaria de Avatar
+ALTER TABLE t_blr_avatar 
+    ADD CONSTRAINT    pk_blr_avatar 
+    PRIMARY KEY       ( cd_cosmetico );
+
+-- Adicionando chave primaria de Cosmeticos
+ALTER TABLE t_blr_cosmetico 
+    ADD CONSTRAINT    pk_blr_cosmetico 
+    PRIMARY KEY       ( cd_cosmetico );
+
+-- Adicionando chave primaria de Exercicio Realizado
+ALTER TABLE t_blr_exer_realizado 
+    ADD CONSTRAINT    fk_blr_exer_realizado 
+    PRIMARY KEY       ( cd_usuario );
+
+-- Adicionando chave primaria de Exercicios
+ALTER TABLE t_blr_exercicio 
+    ADD CONSTRAINT    pk_blr_exercicio 
+    PRIMARY KEY       ( cd_exercicio );
+
+-- Adicionando unique de Exercicios
+ALTER TABLE t_blr_exercicio 
+    ADD CONSTRAINT    un_blr_exercicio 
+    UNIQUE            ( nm_exercicio );
+
+-- Adicionando chave primaria de Loja
+ALTER TABLE t_blr_loja 
+    ADD CONSTRAINT    pk_blr_loja 
+    PRIMARY KEY       ( cd_transacao, cd_usuario );
+
+-- Adicionando chave primaria de Questionario do Dia                                                             
+ALTER TABLE t_blr_quest_dia 
+    ADD CONSTRAINT    pk_blr_quest_dia 
+    PRIMARY KEY       ( dt_registro, cd_usuario );
+
+-- Adicionando chave primaria de Questionario Incial Perguntas                                                            
+ALTER TABLE t_blr_quest_inicial_perg 
+    ADD CONSTRAINT    pk_blr_quest_inicial_perg 
+    PRIMARY KEY       ( cd_questionario_inicial );
+
+-- Adicionando chave primaria de Questionario Inicial Respostas
+ALTER TABLE t_blr_quest_inicial_resp 
+    ADD CONSTRAINT    pk_blr_quest_inicial_resp 
+    PRIMARY KEY       ( cd_questionario_inicial );
+
+-- Adicionando chave primaria de Usuario
+ALTER TABLE t_blr_usuario 
+    ADD CONSTRAINT    pk_blr_usuario 
+    PRIMARY KEY       ( cd_usuario );
+
+-- Adicionando unique de Usuario
+ALTER TABLE t_blr_usuario 
+    ADD CONSTRAINT    un_blr_usuario 
+    UNIQUE            ( nm_usuario );
+
+-- Adicionando chaves estrangeiras
+
+-- Adicionando chave estrangeira de Loja
+ALTER TABLE t_blr_loja
+    ADD CONSTRAINT fk_blr_cosmetico FOREIGN KEY ( cd_cosmetico )
+        REFERENCES t_blr_cosmetico ( cd_cosmetico );
+
+-- Adicionando chave estrangeira de Avatar
+ALTER TABLE t_blr_avatar
+    ADD CONSTRAINT fk_blr_cosmeticov2 FOREIGN KEY ( cd_cosmetico )
+        REFERENCES t_blr_cosmetico ( cd_cosmetico );
+
+-- Adicionando chave estrangeira de Exercicio Realizado
+ALTER TABLE t_blr_exer_realizado
+    ADD CONSTRAINT fk_blr_exercicio FOREIGN KEY ( cd_exercicio )
+        REFERENCES t_blr_exercicio ( cd_exercicio );
+
+-- Adicionando chave estrangeira de Questionario Inicial Respostas
+ALTER TABLE t_blr_quest_inicial_resp
+    ADD CONSTRAINT fk_blr_quest_inicial_perg FOREIGN KEY ( cd_questionario_inicial )
+        REFERENCES t_blr_quest_inicial_perg ( cd_questionario_inicial );
+
+-- Adicionando chave estrangeira de Questionario do Dia
+ALTER TABLE t_blr_quest_dia
+    ADD CONSTRAINT fk_blr_usuario FOREIGN KEY ( cd_usuario )
+        REFERENCES t_blr_usuario ( cd_usuario );
+
+-- Adicionando chave estrangeira de Loja
+ALTER TABLE t_blr_loja 
+    ADD CONSTRAINT fk_blr_usuariov2 FOREIGN KEY ( cd_usuario )
+        REFERENCES t_blr_usuario ( cd_usuario );
+
+-- Adicionando chave estrangeira de Avatar
+ALTER TABLE t_blr_avatar
+    ADD CONSTRAINT fk_blr_usuariov3 FOREIGN KEY ( cd_usuario )
+        REFERENCES t_blr_usuario ( cd_usuario );
+
+-- Adicionando chave estrangeira de Questionario Inicial Respostas
+ALTER TABLE t_blr_quest_inicial_resp
+    ADD CONSTRAINT fk_blr_usuariov4 FOREIGN KEY ( cd_usuario )
+        REFERENCES t_blr_usuario ( cd_usuario );
+
+-- Adicionando chave estrangeira Exercicios Realizados
+ALTER TABLE t_blr_exer_realizado
+    ADD CONSTRAINT fk_blr_usuariov5 FOREIGN KEY ( cd_usuario )
+        REFERENCES t_blr_usuario ( cd_usuario );
+        
+-- ================================================================================================================
+
+-- ESTRUTURA DML
+
+-- Bridge Lab
+
+-- Iserts Usuario
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (1, 'Hamlin Dahl', 'hdahl0@princeton.edu', 'e615Vy', (TO_DATE ( '1955-08-08 02:10:37', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-07-16 22:39:24', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (2, 'Benjie Lightbody', 'blightbody1@disqus.com', 'aj6vSc1B4',  (TO_DATE('1956-06-03 14:42:25', 'yyyy/mm/dd hh24:mi:ss')), null, (TO_DATE( '2021-05-14 15:50:34','yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (3, 'Burty Kernell', 'bkernell2@auda.org.au', '7qe8lSqt3',(TO_DATE ('1984-12-02 01:11:22','yyyy/mm/dd hh24:mi:ss')) , 'M',(TO_DATE ( '2021-07-27 17:34:14', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (4, 'Karrah Musla', 'kmusla3@deliciousdays.com', 'caemurlq',(TO_DATE ( '1983-08-12 17:08:56', 'yyyy/mm/dd hh24:mi:ss')), 'F', (TO_DATE ('2021-09-16 16:27:20', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (5, 'Beryl Castillon', 'bcastillon4@ycombinator.com', 'PBXHd1', (TO_DATE ('1987-10-20 01:39:38', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-09-02 23:02:32', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (6, 'Graham Peidro', 'gpeidro5@senate.gov', 'mkEfzM2thtw6', (TO_DATE ('1968-01-02 01:09:57', 'yyyy/mm/dd hh24:mi:ss')),'M', (TO_DATE ('2021-09-19 20:20:14', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (7, 'Chauncey Olsson', 'colsson6@rediff.com', 'vTRHV0E', (TO_DATE ('1967-10-28 03:33:15', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-07-27 09:43:30', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (8, 'Dominic Dufour', 'ddufour7@multiply.com', '9bGQFB7M', (TO_DATE ('1952-09-24 17:27:00', 'yyyy/mm/dd hh24:mi:ss')), 'M',(TO_DATE ( '2021-06-26 14:07:46', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (9, 'Jourdain Farbrace', 'jfarbrace8@amazon.de', 'GDwHCbsnEq5u', (TO_DATE ('1981-09-22 19:48:08', 'yyyy/mm/dd hh24:mi:ss')), 'M', (TO_DATE ('2021-02-23 09:13:47', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (10, 'Huntley Pack', 'hpack9@list-manage.com', 'RFxvMEEXmZ',(TO_DATE ( '1995-05-30 03:27:57', 'yyyy/mm/dd hh24:mi:ss')), 'M',(TO_DATE ( '2021-06-25 20:17:07', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (11, 'Myrtice Pergens', 'mpergensa@discovery.com', 'vYMczC', (TO_DATE ('1994-04-04 17:41:09', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-02-20 00:00:53', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (12, 'Jacquette Buckell', 'jbuckellb@yandex.ru', 'DhAj9Uxbwehs', (TO_DATE ('2008-01-05 05:14:10', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-04-20 02:54:16', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (13, 'Deina Nijssen', 'dnijssenc@rediff.com', '8YgmkP4HS',(TO_DATE ( '1961-02-10 18:23:16', 'yyyy/mm/dd hh24:mi:ss')), 'F', (TO_DATE ('2021-04-25 04:06:44', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (14, 'Thorny Basant', 'tbasantd@bravesites.com', 'T8A0C41',(TO_DATE ( '1952-12-16 18:56:33', 'yyyy/mm/dd hh24:mi:ss')), 'M', (TO_DATE ('2021-05-17 02:50:18', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (15, 'Gerri Filippov', 'gfilippove@istockphoto.com', 'TyOmGRKuvBg', (TO_DATE ('2009-04-06 17:18:25', 'yyyy/mm/dd hh24:mi:ss')), 'F',(TO_DATE ( '2021-04-05 22:31:55', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (16, 'Vivi Gowdridge', 'vgowdridgef@miibeian.gov.cn', 'JjRjbUZP640',(TO_DATE ( '1955-08-08 02:10:37', 'yyyy/mm/dd hh24:mi:ss')), null,(TO_DATE ( '2021-07-16 22:39:24', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (17, 'Nahum Hinkens', 'nhinkensg@howstuffworks.com', 'pQjOkPVmQ',(TO_DATE ( '1957-03-30 13:27:37', 'yyyy/mm/dd hh24:mi:ss')), 'M', (TO_DATE ('2021-04-12 13:26:01', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (18, 'Ira Gauler', 'igaulerh@google.ru', 'mNNuSDZx', (TO_DATE ('1950-05-25 13:01:16', 'yyyy/mm/dd hh24:mi:ss')), 'F',(TO_DATE ( '2021-07-07 15:04:31', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (19, 'Zebulen Baleine', 'zbaleinei@skyrock.com', '0YxO6g4qQK2K',(TO_DATE ( '1998-03-05 03:28:30', 'yyyy/mm/dd hh24:mi:ss')), 'M', (TO_DATE ('2021-06-07 04:13:03', 'yyyy/mm/dd hh24:mi:ss')));
+insert into t_blr_usuario (cd_usuario, nm_usuario, ds_email, ds_senha, dt_nascimento, ds_genero, dt_cadastro) values (20, 'Leanna Sweeny', 'lsweenyj@google.it', 'sAF9roFL',(TO_DATE ( '1950-10-26 19:58:30', 'yyyy/mm/dd hh24:mi:ss')), 'F', (TO_DATE ('2021-05-13 11:54:41', 'yyyy/mm/dd hh24:mi:ss')));
+
+-- Inserts Cosmetico
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (76629, 'Zontrax', 202.64, 'Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (26390, 'Gembucket', 176.82, 'Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (90241, 'Transcof', 81.72, 'Aliquam erat volutpat.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (86871, 'Wrapsafe', 415.18, 'Pellentesque eget nunc.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (51327, 'Cookley', 12.07, 'Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (30600, 'Voyatouch', 257.22, 'Vivamus vestibulum sagittis sapien.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (19438, 'Treeflex', 868.54, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (18398, 'Zontrax', 258.49, 'Nulla tempus.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (99529, 'Treeflex', 841.17, 'Etiam pretium iaculis justo. In hac habitasse platea dictumst.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (94212, 'Namfix', 399.08, 'Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (63871, 'Quo Lux', 329.87, 'Aliquam erat volutpat. In congue.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (14640, 'Flowdesk', 923.92, 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (64406, 'Stronghold', 807.01, 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (39656, 'Stronghold', 939.25, 'Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (81603, 'Regrant', 614.38, 'Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (83437, 'Cookley', 922.24, 'Mauris sit amet eros. Suspendisse accumsan tortor quis turpis. Sed ante. Vivamus tortor.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (52540, 'Stim', 481.13, 'Maecenas tincidunt lacus at velit.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (24491, 'Y-find', 378.25, 'Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (49608, 'Job', 819.3, 'Nunc rhoncus dui vel sem. Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus. Pellentesque at nulla.');
+insert into T_BLR_COSMETICO (cd_cosmetico, nm_cosmetico, vl_cosmetico, ds_cosmetico) values (28247, 'Cardify', 945.3, 'Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.');
+
+-- Iserts Avatar
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (649, 244, 76629, 1);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (1917, 111, 26390, 2);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (475, 309, 90241, 3);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (9728, 475, 86871, 4);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (6777, 773, 51327, 5);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (7402, 512, 30600, 6);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (4273, 839, 19438, 7);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (1150, 403, 18398, 8);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (4758, 321, 99529, 9);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (8092, 471, 94212, 10);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (4961, 133, 63871, 11);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (716, 592, 14640, 12);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (6265, 394, 64406, 13);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (9676, 443, 39656, 14);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (2794, 69, 81603, 15);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (7970, 305, 83437, 16);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (4002, 848, 52540, 17);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (1318, 918, 24491, 18);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (5578, 580, 49608, 19);
+insert into T_BLR_AVATAR (nr_pontuacao_total, nr_total_cosmetico, cd_cosmetico, cd_usuario) values (8271, 22, 28247, 20);
+
+-- Inserts Exercicio
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (1, 'Konklux', 'Cras pellentesque volutpat dui.', 6220, 1447);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (2, 'Alphazap', 'Maecenas pulvinar lobortis est. Phasellus sit amet erat.', 5698, 8437);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (3, 'Otcom', 'Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum.', 3286, 3453);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (4, 'Zontrax', 'Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue.', 4443, 8345);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (5, 'Fintone', 'Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat.', 3145, 3590);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (6, 'Lotlux', 'Phasellus sit amet erat.', 9443, 3451);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (7, 'Bigtax', 'Suspendisse potenti.', 8483, 183);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (8, 'Tin', 'Donec posuere metus vitae ipsum.', 4694, 1357);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (9, 'Zathin', 'Cras pellentesque volutpat dui. Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc.', 1898, 1183);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (10, 'Overhold', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien.', 6786, 3145);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (11, 'Latlux', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 8745, 1243);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (12, 'Stim', 'Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 7752, 8629);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (13, 'Opela', 'Nulla nisl. Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.', 955, 9979);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (14, 'Domainer', 'In hac habitasse platea dictumst. Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem.', 4802, 1099);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (15, 'Zoolab', 'Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 8022, 98);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (16, 'Fixflex', 'Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla.', 125, 9264);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (17, 'Rank', 'Donec ut mauris eget massa tempor convallis.', 3511, 1644);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (18, 'Fix San', 'Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat.', 8128, 7229);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (19, 'Zathn', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 2324, 5933);
+insert into t_blr_exercicio (cd_exercicio, nm_exercicio, ds_exercicio, nr_pontuacao, qt_realizada) values (20, 'Fintoe', 'Morbi vel lectus in quam fringilla rhoncus.', 548, 3441);
+
+-- Inserts Exercicio Realizado
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-05-12 13:43:57', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-09 09:22:02', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-05-16 20:08:31', 'yyyy/mm/dd hh24:mi:ss')), 1, 1);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-05-11 04:43:19', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-06-18 22:29:55', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-09-27 19:31:24', 'yyyy/mm/dd hh24:mi:ss')), 2, 2);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-08-03 03:33:17', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-05-02 08:04:53', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-02-16 06:54:36', 'yyyy/mm/dd hh24:mi:ss')), 3, 3);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-03-03 21:12:43', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-04-26 12:18:07', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-02-18 20:07:55', 'yyyy/mm/dd hh24:mi:ss')), 4, 4);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-02-01 05:43:36', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-05-14 19:14:02', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-03-12 10:38:50', 'yyyy/mm/dd hh24:mi:ss')), 5, 5);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-02-02 13:32:17', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-07-18 00:13:14', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-04-26 08:34:38', 'yyyy/mm/dd hh24:mi:ss')), 6, 6);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-10-12 02:47:57', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-08-12 11:45:00', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-09-07 21:49:45', 'yyyy/mm/dd hh24:mi:ss')), 7, 7);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-04-08 11:41:48', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-06-26 00:00:50', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-02-15 20:52:55', 'yyyy/mm/dd hh24:mi:ss')), 8, 8);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-02-22 20:33:37', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-09-23 10:43:48', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-10-06 23:55:11', 'yyyy/mm/dd hh24:mi:ss')), 9, 9);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-03-15 19:25:01', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-03-04 22:01:35', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-29 11:50:46', 'yyyy/mm/dd hh24:mi:ss')), 10, 10);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-01-23 22:41:31', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-04-13 23:37:04', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-09-08 13:23:55', 'yyyy/mm/dd hh24:mi:ss')), 11, 11);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-07-25 06:21:32', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-17 01:18:17', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-03-21 13:41:58', 'yyyy/mm/dd hh24:mi:ss')), 12, 12);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-01-14 09:59:14', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-08-30 04:38:54', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-08-21 05:37:23', 'yyyy/mm/dd hh24:mi:ss')), 13, 13);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-04-12 20:14:53', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-06-02 22:19:41', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-08-02 18:25:53', 'yyyy/mm/dd hh24:mi:ss')), 14, 14);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-06-04 23:12:30', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-03-11 01:47:27', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-02-27 04:46:28', 'yyyy/mm/dd hh24:mi:ss')), 15, 15);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-07-14 13:56:09', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-08-06 22:49:03', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-17 14:47:10', 'yyyy/mm/dd hh24:mi:ss')), 16, 16);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-02-23 19:54:11', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-06-01 08:18:07', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-04-27 12:08:42', 'yyyy/mm/dd hh24:mi:ss')), 17, 17);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-02-11 02:52:05', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-28 13:00:45', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-04-01 01:55:58', 'yyyy/mm/dd hh24:mi:ss')), 18, 18);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-06-27 14:31:47', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-02-27 13:55:55', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-01-01 15:15:16', 'yyyy/mm/dd hh24:mi:ss')), 19, 19);
+insert into T_BLR_EXER_REALIZADO (sq_inicio, sq_final, dt_exercicio, cd_usuario, cd_exercicio) values ((TO_DATE('2021-06-04 18:42:22', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-05-08 08:57:53', 'yyyy/mm/dd hh24:mi:ss')), (TO_DATE('2021-09-18 00:17:01', 'yyyy/mm/dd hh24:mi:ss')), 20, 20);
+
+
+-- Inserts Loja
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (6567, 863, 76629, 1);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (1519, 799, 26390, 2);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (7806, 558, 90241, 3);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (7494, 513, 86871, 4);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (8770, 440, 51327, 5);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (2381, 531, 30600, 6);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (9597, 66, 19438, 7);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (9854, 945, 18398, 8);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (7706, 785, 99529, 9);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (6574, 771, 94212, 10);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (3133, 71, 63871, 11);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (6065, 836, 14640, 12);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (9920, 643, 64406, 13);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (9135, 786, 39656, 14);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (3987, 487, 81603, 15);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (3133, 431, 83437, 16);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (6509, 28, 52540, 17);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (3165, 348, 24491, 18);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (8919, 836, 49608, 19);
+insert into T_BLR_LOJA (cd_transacao, nr_total_transacao, cd_cosmetico, cd_usuario) values (6102, 872, 28247, 20);
+
+-- Inserts Questionario Dia
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-05-13 09:59:12', 'yyyy/mm/dd hh24:mi:ss')),  5, 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci.', 1);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-07-27 23:14:34', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Praesent lectus.', 2);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-09-02 23:16:44', 'yyyy/mm/dd hh24:mi:ss')), 3, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 3);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-04-21 13:21:49', 'yyyy/mm/dd hh24:mi:ss')), 4, 'Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.', 4);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-08-24 14:27:57', 'yyyy/mm/dd hh24:mi:ss')), 1, 'Mauris ullamcorper purus sit amet nulla.', 5);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-09-07 05:44:56', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius.', 6);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-03-01 00:45:59', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Vestibulum sed magna at nunc commodo placerat. Praesent blandit.', 7);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-07-09 12:23:06', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Nullam varius.', 8);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-03-01 23:42:34', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 9);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-03-04 08:19:49', 'yyyy/mm/dd hh24:mi:ss')), 2, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus.', 10);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-01-21 18:22:34', 'yyyy/mm/dd hh24:mi:ss')), 1, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst.', 11);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-06-03 16:19:49', 'yyyy/mm/dd hh24:mi:ss')), 2, 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 12);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-04-22 02:55:49', 'yyyy/mm/dd hh24:mi:ss')), 3, 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 13);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-05-03 09:13:51', 'yyyy/mm/dd hh24:mi:ss')), 1, 'Etiam faucibus cursus urna.', 14);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-06-29 15:36:19', 'yyyy/mm/dd hh24:mi:ss')), 4, 'Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 15);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-05-01 08:05:41', 'yyyy/mm/dd hh24:mi:ss')), 4, 'Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 16);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-06-12 00:13:14', 'yyyy/mm/dd hh24:mi:ss')), 1, 'Suspendisse potenti. Nullam porttitor lacus at turpis.', 17);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-05-23 05:43:08', 'yyyy/mm/dd hh24:mi:ss')), 1, 'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.', 18);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-05-02 15:19:02', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Donec quis orci eget orci vehicula condimentum.', 19);
+insert into T_BLR_QUEST_DIA (dt_registro, nr_humor, ds_dia, cd_usuario) values ((TO_DATE('2021-02-09 10:16:23', 'yyyy/mm/dd hh24:mi:ss')), 5, 'Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue.', 20);
+
+-- Inserts Questionario Inicial Perg
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (78552, 19, 'Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 19, 'Suspendisse ornare consequat lectus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (94259, 16, 'Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna.', 4, 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (36388, 19, 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo. Aliquam quis turpis eget elit sodales scelerisque.', 7, 'In quis justo.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (63021, 11, 'Phasellus sit amet erat.', 5, 'Nullam porttitor lacus at turpis.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (82267, 12, 'Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 2, 'Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (73070, 4, 'Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero. Nam dui.', 4, 'Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (15418, 13, 'Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum. Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 9, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (39072, 3, 'Nullam molestie nibh in lectus. Pellentesque at nulla. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis.', 12, 'Maecenas rhoncus aliquam lacus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (93016, 11, 'Phasellus id sapien in sapien iaculis congue.', 6, 'Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (88599, 3, 'Nulla facilisi. Cras non velit nec nisi vulputate nonummy.', 1, 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (48509, 4, 'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 4, 'Fusce consequat. Nulla nisl.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (89106, 1, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 15, 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat. Curabitur gravida nisi at nibh.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (23493, 13, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.', 1, 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (33117, 2, 'Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 16, 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (59347, 14, 'Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo.', 9, 'Proin risus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (53541, 17, 'Suspendisse accumsan tortor quis turpis.', 9, 'Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (23435, 1, 'Aenean auctor gravida sem.', 12, 'Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (16613, 4, 'Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius. Integer ac leo. Pellentesque ultrices mattis odio.', 13, 'Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (56445, 19, 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris. Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet.', 18, 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (19960, 19, 'Donec quis orci eget orci vehicula condimentum.', 5, 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat.');
+insert into T_BLR_QUEST_INICIAL_PERG (cd_questionario_inicial, nr_questao, ds_questao, nr_resposta, ds_resposta) values (19961, 19, 'Donec quindimentu vehicula condimentum.', 5, 'Curabitur gquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat.');
+
+-- Inserts Questionario Inicial Respostas
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (78552, 1);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (94259, 2);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (36388, 3);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (63021, 4);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (82267, 5);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (73070, 6);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (15418, 7);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (93016, 8);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (88599, 9);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (48509,10);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (89106, 11);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (23493, 12);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (33117, 13);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (59347, 14);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (53541, 15);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (23435, 16);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (16613, 17);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (56445, 18);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (19960, 19);
+INSERT INTO t_blr_quest_inicial_resp (cd_questionario_inicial, cd_usuario) VALUES (19961, 20);
+

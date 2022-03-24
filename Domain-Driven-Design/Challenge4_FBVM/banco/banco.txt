@@ -1,0 +1,142 @@
+
+--DDL
+
+
+--DROP TABLE t_sm_admin CASCADE CONSTRAINTS;
+
+--DROP TABLE t_sm_usuario CASCADE CONSTRAINTS;
+
+
+CREATE TABLE t_sm_admin (
+    cd_codigo   NUMBER PRIMARY KEY NOT NULL,
+    nm_cliente  VARCHAR2(50) 	NOT NULL,
+    ds_email    VARCHAR2(50) 	NOT NULL,
+    ds_senha    VARCHAR2(20) 	NOT NULL
+);
+
+CREATE sequence sq_tb_admin start with 1 increment by 1;
+
+ALTER TABLE t_sm_admin ADD constraint ck_sm_admin_codigo CHECK ( cd_codigo >0);
+
+ALTER TABLE t_sm_admin ADD CONSTRAINT t_sm_admin_pk PRIMARY KEY ( cd_codigo );
+
+ALTER TABLE t_sm_admin ADD CONSTRAINT un_sm_admin_email UNIQUE ( ds_email );
+
+CREATE TABLE t_sm_usuario (
+    cd_codigo           NUMBER PRIMARY KEY NOT NULL,
+    nm_cliente          VARCHAR2(50) 	NOT NULL,
+    ds_senha            VARCHAR2(20)	NOT NULL,
+    cd_ansiedade	    NUMBER(1)	 	NOT NULL,
+    ds_email            VARCHAR2(50) 	NOT NULL
+);
+
+CREATE sequence sq_tb_usuario start with 1 increment by 1;
+ALTER TABLE t_sm_usuario ADD constraint ck_sm_usuario_codigo CHECK ( cd_codigo >0);
+
+ALTER TABLE t_sm_usuario ADD CONSTRAINT t_sm_usuario_pk PRIMARY KEY ( cd_codigo );
+
+ALTER TABLE t_sm_usuario ADD CONSTRAINT un_sm_usuario_email UNIQUE ( ds_email );
+
+
+
+select * from t_sm_usuario
+select * from t_sm_admin
+
+
+
+
+
+
+--DML
+
+INSERT INTO t_sm_admin 
+VALUES (1,'Cole Roy','pede@fringillaporttitor.net','UGG68OQK8JF');
+
+INSERT INTO t_sm_admin 
+VALUES (2,'Denton Duffy','pede.sagittis@tristiquenequevenenatis.org','FFK45DQY2FE');
+
+INSERT INTO t_sm_admin 
+VALUES (3,'Wanda Garrison','fusce.feugiat@maurismolestiepharetra.edu','PCH34WTQ3UW');
+
+INSERT INTO t_sm_admin 
+VALUES (4,'Isaac Mcgowan','nulla@lorem.org','BEH65WLX0VJ');
+
+INSERT INTO t_sm_admin 
+VALUES (5,'Felix Burnett','pellentesque.dignissim@produis.com','DEK36DTZ1NR');
+
+INSERT INTO t_sm_admin 
+VALUES (6,'Marvin Rivas','leo@mauris.net','RAJ63OLV4TH');
+
+INSERT INTO t_sm_admin 
+VALUES (7,'Grady Jenkins','magna.praesent.interdum@tellusjusto.ca','PSA41LKQ7QW');
+
+INSERT INTO t_sm_admin 
+VALUES (8,'Raymond England','sapien@sitametmetus.com','PCL28QRS8PY');
+
+INSERT INTO t_sm_admin 
+VALUES (9,'Miranda Conley','sit.amet@luctuset.net','ZXD49QRS2YK');
+
+INSERT INTO t_sm_admin 
+VALUES (10,'Bernard Robinson','ut.odio.vel@estmollis.edu','LGN61JJC3HS');
+
+INSERT INTO t_sm_admin 
+VALUES (11,'Jemima Conley','ligula.consectetuer.rhoncus@vivamus.net','XRV67MWV8PI');
+
+INSERT INTO t_sm_admin 
+VALUES (12,'Jolie Reilly','lorem@mauris.co.uk','XQY42XPM5GX');
+
+INSERT INTO t_sm_admin 
+VALUES (13,'Inga Sparks','phasellus.in@miac.edu','FOM83EXC1ON');
+
+INSERT INTO t_sm_admin 
+VALUES (14,'Sopoline Crosby','nunc.laoreet@egestasblandit.com','BCS58RFC3HH');
+
+INSERT INTO t_sm_admin 
+VALUES (15,'Piper Lee','metus@enimetiam.org','ETF08VRY3HJ');
+
+INSERT INTO t_sm_admin 
+VALUES (16,'Erich Forbes','dapibus@eros.net','NDL42BWQ4ON');
+
+INSERT INTO t_sm_admin 
+VALUES (17,'Nomlanga Gray','malesuada.vel@semper.com','DIE48XML5FM');
+
+INSERT INTO t_sm_admin 
+VALUES (18,'Shea Roy','neque.et@volutpat.co.uk','RNV35NKT0PO');
+
+INSERT INTO t_sm_admin 
+VALUES (19,'Daryl Orr','quisque.ornare.tortor@nislelementumpurus.net','VOO70ZKO5VE');
+
+INSERT INTO t_sm_admin 
+VALUES (20,'Quail Weeks','ultrices.posuere@gravidamolestie.co.uk','JKH35OLK7OQ');
+
+
+
+INSERT INTO t_sm_usuario 
+VALUES(1,'Quinn Flores','QYK57YOK2VV',3,'nunc.sed@ac.edu'); 
+
+INSERT INTO t_sm_usuario 
+VALUES (2,'Cain Poole','BLM59TPO9IJ',2,'natoque.penatibus@insodales.edu');
+
+INSERT INTO t_sm_usuario 
+VALUES (3,'Courtney Barnett','DMO42XHA7XO',1,'gravida.sagittis@utpharetra.net');
+
+INSERT INTO t_sm_usuario 
+VALUES (4,'Adrian Bridges','XGQ71HJP5GC',2,'commodo@sitamet.com');
+
+INSERT INTO t_sm_usuario 
+VALUES (5,'Simon Juarez','IIL28QNQ2MU',1,'vulputate.velit@vulputateeuodio.net');
+
+INSERT INTO t_sm_usuario 
+VALUES (6,'Micah Chase','KIT06PQM2KY',3,'non.sapien@quamquisdiam.co.uk');
+
+INSERT INTO t_sm_usuario 
+VALUES (7,'Kareem Vance','GWE46JUW4GF',2,'auctor.non.feugiat@craspellentesque.org');
+
+INSERT INTO t_sm_usuario 
+VALUES (8,'Zoe Gomez','UOF15TLK8VW',2,'non.feugiat@auctornon.org');
+
+INSERT INTO t_sm_usuario 
+VALUES (9,'Cheyenne Hess','GMI12KPU3QQ',2,'mollis@elitdictumeu.ca');
+
+INSERT INTO t_sm_usuario
+VALUES (10,'Chadwick Chavez','YMJ22MBH7MU',2,'ullamcorper.magna@sem.edu');

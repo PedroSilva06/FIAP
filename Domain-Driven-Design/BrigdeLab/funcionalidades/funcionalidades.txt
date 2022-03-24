@@ -1,0 +1,19 @@
+Projeto testado no Java 1.8 (Java 8)
+
+Criado os seguintes pacotes: 
+Package br.com.fiap.tds.FACTORY - Conexão com o banco de dados Oracle.
+Package br.com.fiap.tds.BEAN - Criado a classe de estrutura de dados referente as tabelas do banco de dados.
+Package br.com.fiap.tds.DAO - Criado a classe com os métodos para SELECT e INSERT de dados no banco.
+Package br.com.fiap.tds.VIEW - Criado a classe com o método para visualização (OUTPUT) dos dados do banco.
+Package br.com.fiap.tds.BO - Criado a classe com o método para cadastrar (INPUT) os dados do banco. 
+
+Obs: Ao criar um novo workspace pode ocorrer alguns erros, siga os passos para corrigilos.
+
+1. Clicar com o bot�o direito no projeto
+2. Selecione Proprieties
+3. Run/Debug Settings
+4. Exclua todos os itens
+5. Clique em new
+6. Digite a classe main "UsuarioBO" e procure por ela em search
+7. Salve as altera��es
+8. Execute o projeto com run as Java Aplication

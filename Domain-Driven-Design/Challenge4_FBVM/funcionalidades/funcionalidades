@@ -1,0 +1,6 @@
+No usuarioDAO são usados métodos cadastrar, pesquisar, atualizar, 
+listar por código, TOC, TAG, SP e remover.
+
+No usuarioBO os dados do cadastrar são validados por tamanho exceto pelo
+dado ansiedade que é validado pelo número digitado, sendo 1=TOC, 2=SP, 3=TAG.
+  
