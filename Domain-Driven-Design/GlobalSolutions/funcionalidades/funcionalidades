@@ -1,0 +1,3 @@
+No produtoDAO são usados métodos cadastrar, pesquisar por nome, atualizar, listar e remover os produtos.
+
+No produtoBO a função cadastrar são validados os dados 'nome' e 'validade' por comprimento e a 'quantidade' não pode ser um valor negativo.
