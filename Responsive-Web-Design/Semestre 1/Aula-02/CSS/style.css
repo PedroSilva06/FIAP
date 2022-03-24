@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&display=swap');
+/* Seletor pela TAG */
+
+p{
+    color:blue;
+   }
+
+/* Seletor pelo ID */
+
+#primeiro{
+    color:green;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: small-caps;
+    line-height: 30px;
+    letter-spacing: 5px;
+}
+
+/* Seletor pela CLASS */
+
+.laranja{
+    color: orange;
+}
+
+.grande{   /* Fora da DIV */
+    font-size: 1.5em; /*24px*/
+}
+
+.mono{   /*Dentro da DIV */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5em ; /*45px*/
+    text-align: justify;
+    text-transform: capitalize;
+}
+
+a{
+    text-emphasis: none;
+}
+
+div{
+    background-color: #cccccc44;
+    font-size: 30px;
+} 
+
+body{
+    height: 600px;
+    background-image: url(../img/bloco.jpg);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: 150px 100px;
+
+}
+
+h1{
+    font-family: 'Pacifico', cursive;
+    text-align: center;
+    text-shadow: 3px 5px 4px gray;
+}
+
+.negrito{
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: line-through, underline;
+
+}
+
+/* left center right / top center bottom */
+
+/* HUERARQUIA DE SELETORES
+    1º ID
+    2º CLASS
+    3º TAG
+    
+    */

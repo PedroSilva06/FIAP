@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale:1.0">
+	<title>Login ou Registro</title>
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Six+Caps&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/stylereg.css">
+</head>
+<body>
+	<nav class="navbar">
+        <div class="title">Travel Blog</div>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vidaNoturna.html">Vida Noturna</a></li>
+                <li><a href="dicasUteis.html">dicas Uteis</a></li>
+                <li><a href="quemSomos.html">Sobre nós</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="loginreg.html" class="register">Registre-se</a></li>
+            </ul>
+        </div>
+        <a href="#" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+    </nav>
+    <script src="js/script.js"></script>
+
+	<div class="main">
+		<div class="card">
+			<div class="card-body">
+				<div class="card-body-top">
+					<button id="login" class="btn" name="login" onclick="login()">login</button>
+					<button id="register" class="btn" name="register" onclick="register()">Cadastre-se</button>
+					<div id="pointer-btn"></div>
+				</div>
+				<div class="card-body-login">
+					<form id="login-form">
+						<input class="input-form" type="email" placeholder="Digite seu email" required><br><br>
+						<input class="input-form" type="password" placeholder="Digite sua senha" required><br><br><br>
+						<input class="submit-form" type="submit" value="Entrar">
+					</form>
+					<form id="register-form">
+						<input class="input-form" type="name" placeholder="Digite seu nome" required><br><br>
+						<input class="input-form" type="email" placeholder="Digite seu email" required><br><br>
+						<input class="input-form" type="password" placeholder="Digite sua senha" required><br><br>
+						<input class="submit-form" type="submit" value="Cadastrar">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		var x = document.getElementById("login-form");
+		var y = document.getElementById("register-form");
+		var z = document.getElementById("pointer-btn");
+		var l = document.getElementById("Usuário");
+		var r = document.getElementById("registro");
+		var ac = document.getElementById("action_title");
+
+		function register(){
+			x.style.left = "-450px";
+			y.style.left = "25px";
+			z.style.left = "215px";
+			l.style.color = "#848484";
+			r.style.color = "#f0850c";
+			ac.textContent = "Register";
+		}
+
+		function login(){
+			x.style.left = "25px";
+			y.style.left = "450px";
+			z.style.left = "30px";
+			l.style.color = "#f0850c";
+			r.style.color = "#848484";
+			ac.textContent = "Login";
+		}		
+	</script>
+
+<footer>
+	<div class="container">
+		<div class="sec sobrenos">
+			<h2>Sobre nós</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem ipsam mollitia, qui soluta error quibusdam eius obcaecati? Exercitationem eum eligendi quis ducimus eaque minus! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum iusto aliquid nostrum ratione error sit esse iste eaque ullam fugiat eos, blanditiis voluptatibus minima recusandae nulla necessitatibus sequi! Accusamus, corporis. lore</p>
+			<ul class="sci">
+				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<li><a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+			</ul>
+		</div>
+		<div class="sec links">
+			<h2>links rápidos</h2>
+			<ul>
+				<li><a href="#">Sobre</a></li>
+				<li><a href="#">Contato</a></li>
+				<li><a href="#">FAQ</a></li>
+				<li><a href="#">Ajuda</a></li>
+				<li><a href="#">Termos de servico</a></li>
+			</ul>
+		</div>
+		<div class="sec contato">
+			<h2>Informações de contato</h2>
+			<ul class="info">
+				<li>
+					
+				</li>
+				<li>
+					<span><i class="fa fa-phone" aria-hidden="true"></i></span>
+					<p><a href="tel:112345678">+11 2344 5678</a></span>
+					<br><a href="tel:112345678">+11 2344 5678</a></p>
+				</li>
+				<li>
+					<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+					<p><a href="email:viagensdogulliver@email.com">viagensdogulliver@email.com</a></p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</footer>
+</body>
+</html>

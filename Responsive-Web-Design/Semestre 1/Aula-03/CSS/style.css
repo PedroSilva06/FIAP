@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.box1{
+    background-color: yellow;
+    width: 50%;
+    height: 80px;
+/*    min-width: 80px;
+    min-width: 600px;
+    max-width: 600px; 
+    overflow:auto ;*/
+   /* configura as 4 lasguras juntas */
+   /* border-width: 10px; */
+
+   /* Configura um lado por vez */
+    /* border-top-width: 10px;
+    border-right-width: 15px;
+    border-bottom-width: 20px;
+    border-left-width: 25px; */
+
+    /* border-width: 5px;
+    border-style: solid;
+    border-color: orange; */
+    /* border-top-color: blue;
+    border-right-color: red; */
+
+    background-color: yellow;
+    width: 400px;
+    border: 5px solid orange;
+    padding: 10px;
+    box-sizing: content-box;
+    margin: 30px;
+    border-radius: 30px;
+
+}
+
+.box2{
+    width: 50%;
+    /* height: 80px; */
+    border: 5px solid orange;
+    padding: 10px;
+    background-color: green;
+    box-sizing: border-box;
+    margin: 30px;
+    color: white;
+    box-shadow: 8px 10px 3px grey;
+    border-radius: 20px 35px;
+}

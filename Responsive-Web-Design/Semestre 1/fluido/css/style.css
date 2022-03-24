@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+div{
+    width: 100%;
+    min-height: 80px;
+    background-color: #aaaadd;
+    border: 5px solid white;
+    padding: 10px;
+    float: left;
+    font-size: 20px;
+}
+
+/* .box2, .box3{
+    width: 50%;
+}
+
+.box4, .box5, .box6, .box7{
+    width: 25%;
+}
+
+.em{
+    font-size: 1.2em;
+}
+
+.rem{
+    font-size: 1.5rem;
+}
+
+.view{
+    font-size: 2vw;
+} 
+
+
+Títulos = 2em
+subtítulos = 1.5em
+paragrafos = 1.2em
+*/

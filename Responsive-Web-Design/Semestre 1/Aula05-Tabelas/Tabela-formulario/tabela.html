@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabelas</title>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table{
+            width: 40%;
+            margin: auto;
+        }
+        .coluna{
+            background-color: aqua;
+        }
+        tr:nth-child(even){
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <colgroup>
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <caption>Tabela de Notas</caption>
+        <thead>
+        <tr>
+            <th>Aluno</th>
+            <th>Java</th>
+            <th>Web</th>
+            <th>Banco</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Paulo</td>
+            <td>9,0</td>
+            <td>9,5</td>
+            <td>8,5</td>
+        </tr>
+        <tr>
+            <td>Raissa</td>
+            <td>9,5</td>
+            <td>9,0</td>
+            <td>9,0</td>
+        </tr>
+    </tbody>
+    </table>
+    
+</body>
+</html>

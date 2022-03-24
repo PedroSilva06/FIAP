@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <style>
+        form{
+            width: 25%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulário</h1>
+    
+
+    <form name="preferencias" action="cadastrar" method="get">
+    
+        <fieldset>
+            <legend>Preferências</legend>
+
+            <label for="idNome">Nome:</label>
+            <input type="text" name="nome" id="idNome"><br>
+            
+            <label for="idEmail">E-Mail:</label>
+            <input type="text" name="email" id="idEmail"><br>
+            
+            <label for="idCor">Cor favorita:</label>
+            <select name="corFavorita" id="idCor">
+                <option value="">Azul</option>
+                <option value="">Preto</option>
+                <option value="">Vermelho</option>
+                <option value="">Verde</option>
+                <option value="">Amarelo</option>
+                <option value="">Branco</option>
+            </select><br>
+            <input type="radio" name="manequim" id="idPeq" value="P">
+            <label for="idPeq">Pequeno</label>
+            <input type="radio" name="manequim" id="idMed" value="M">
+            <label for="idMed">Médio</label>
+            <input type="radio" name="manequim" id="idGra" value="G">
+            <label for="idGra">Grande</label>
+            <input type="radio" name="manequim" id="idExGra" value="XG">
+            <label for="idExGra">Extra Grande</label><br>
+
+            <input type="checkbox" name="estilo" id="idDespojado" value="Despojado">
+            <label for="idDespojado">Despojado</label>
+            <input type="checkbox" name="estilo" id="idCasual" value="Casual">
+            <label for="idCasual">Casual</label>
+            <input type="checkbox" name="estilo" id="idEsporte" value="Esporte">
+            <label for="idEsporte">Esporte</label>
+            <input type="checkbox" name="estilo" id="idSocial" value="Social">
+            <label for="idSocial">Social</label><br>
+            
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Limpar">
+        </fieldset>
+    </form>
+</body>
+</html>
